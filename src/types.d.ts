@@ -9,6 +9,11 @@ export type AnyFunction = (...args: any[]) => any;
 export type ArrayItem<T> = T extends (infer I)[] ? I : never;
 
 /**
+ * Any object.
+ */
+export type AnyObject<T extends object = {}> = { [K in keyof T]?: any };
+
+/**
  * Callback function as generic.
  */
 export type Callback<A = [], R = void> = (...args: A) => R;
@@ -22,16 +27,6 @@ export type Dictionary<T = unknown> = Record<string, T>;
  * Value equivalent to false.
  */
 export type Falsy = 0 | 0n | '' | false | null | undefined;
-
-/**
- * Immutable array type.
- */
-export type ImmutableArray<T = unknown> = readonly T[];
-
-/**
- * Immutable object type.
- */
-export type ImmutableObject<T extends object> = { readonly [K in keyof T]: T[K] };
 
 /**
  * JSON array.
@@ -54,9 +49,24 @@ export type JSONPrimitive = boolean | null | number | string;
 export type JSONValue = JSONArray | JSONObject | JSONPrimitive;
 
 /**
- * Unknown type of object or array, or other value.
+ * Read-only array.
  */
-export type Unknown<T> = T extends object ? { [k in keyof T]: unknown } : T extends object[] ? unknown[] : unknown;
+export type ReadonlyArray<T = unknown> = readonly T[];
+
+/**
+ * Read-only object.
+ */
+export type ReadonlyObject<T extends object> = { readonly [K in keyof T]: T[K] };
+
+/**
+ * Function with unknown arguments and unknown return type.
+ */
+export type UnknownFunction = (...args: unknown[]) => unknown;
+
+/**
+ * Unknown object.
+ */
+export type UnknownObject<T extends object = {}> = { [K in keyof T]?: unknown };
 
 /**
  * Type of value contained.
