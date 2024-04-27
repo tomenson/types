@@ -4,21 +4,23 @@
  *
  * @throws {TypeError}
  */
-export function asPromise<T extends Promise<void>>(value: unknown): T {
-  if (isPromise(value)) return value as T;
+export function asPromise<T>(value: T): T extends Promise<infer I> ? T : never {
+  // @ts-ignore
+  if (isPromise(value)) return value;
   throw new TypeError(`${value === null ? null : typeof value} is not a Promise`);
 }
 
 /**
  * Returns true if the value is a Promise object.
  */
-export function isPromise<T extends Promise<void>>(value: unknown): value is T {
+export function isPromise<T>(value: unknown): value is Promise<T> {
   return value ? Object.prototype.toString.call(value) === '[object Promise]' : false;
 }
 
 /**
  * Converts the value to a Promise object.
  */
-export function toPromise<T extends Promise<void>>(value: unknown): T {
-  return (isPromise(value) ? value : Promise.resolve(value)) as T;
+export function toPromise<T>(value: T): T extends Promise<infer I> ? T : Promise<T> {
+  // @ts-ignore
+  return (isPromise(value) ? value : Promise.resolve(value));
 }

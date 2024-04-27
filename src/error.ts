@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asError<T extends Error>(value: unknown, errMsg?: string): T {
-  if (isError(value)) return value as T;
+export function asError<T>(value: T, errMsg?: string): T extends Error ? T : never {
+  // @ts-ignore
+  if (isError(value)) return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} is not an Error object`);
 }
 
@@ -19,7 +20,9 @@ export function isError<T extends Error>(value: unknown): value is T {
 /**
  * Converts the value to an Error object.
  */
-export function toError<T extends Error>(value: unknown): T {
-  if (value === null || value === undefined) return new Error() as T;
-  return (isError(value) ? value : new Error(String(value))) as T;
+export function toError<T>(value: T): T extends Error ? T : Error {
+  // @ts-ignore
+  if (value === null || value === undefined) return new Error();
+  // @ts-ignore
+  return isError(value) ? value : new Error(String(value));
 }

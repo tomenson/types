@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asBoolean<T extends boolean>(value: unknown, errMsg?: string): T {
-  if (typeof value === 'boolean') return value as T;
+export function asBoolean<T>(value: T, errMsg?: string): T extends boolean ? T : never {
+  // @ts-ignore
+  if (typeof value === 'boolean') return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a boolean`);
 }
 
@@ -20,6 +21,7 @@ export function isBoolean<T extends boolean>(value: unknown): value is T {
 /**
  * Converts the value to a boolean.
  */
-export function toBoolean<T extends boolean>(value: unknown): T {
-  return Boolean(value) as T;
+export function toBoolean<T>(value: T): T extends boolean ? T : boolean {
+  // @ts-ignore
+  return Boolean(value);
 }

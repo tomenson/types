@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asNumber<T extends number>(value: unknown, errMsg?: string): T {
-  if (typeof value === 'number') return value as T;
+export function asNumber<T>(value: T, errMsg?: string): T extends number ? T : never {
+  // @ts-ignore
+  if (typeof value === 'number') return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a number`);
 }
 
@@ -20,12 +21,15 @@ export function isNumber<T extends number>(value: unknown): value is T {
 /**
  * Converts the value to a number.
  */
-export function toNumber<T extends number>(value: unknown): T {
-  if (value === null || value === undefined) return NaN as T;
+export function toNumber<T>(value: T): T extends number ? T : number {
+  // @ts-ignore
+  if (value === null || value === undefined) return NaN;
 
   try {
-    return Number(value) as T;
+    // @ts-ignore
+    return Number(value);
   } catch {
-    return NaN as T;
+    // @ts-ignore
+    return NaN;
   }
 }

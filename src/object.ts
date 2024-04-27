@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asObject<T extends object>(value: unknown, errMsg?: string): T {
-  if (value && typeof value === 'object') return value as T;
+export function asObject<T>(value: T, errMsg?: string): T extends object ? T : never {
+  // @ts-ignore
+  if (value && typeof value === 'object') return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} cannot be converted to an object`);
 }
 
@@ -15,8 +16,9 @@ export function asObject<T extends object>(value: unknown, errMsg?: string): T {
  *
  * @throws {TypeError}
  */
-export function asObjectOrNull<T extends object>(value: unknown, errMsg?: string): T | null {
-  return value !== null ? asObject<T>(value, errMsg) : null;
+export function asObjectOrNull<T>(value: T, errMsg?: string): T extends object | null ? T : never {
+  // @ts-ignore
+  return value !== null ? asObject(value, errMsg) : null;
 }
 
 /**
@@ -30,8 +32,9 @@ export function isObject<T extends object>(value: unknown): value is T {
 /**
  * Converts the value to an object.
  */
-export function toObject<T extends object>(value: unknown): T {
-  if (value === null || value === undefined) return {} as T;
-
-  return (typeof value === 'object' ? value : { valueOf: () => value }) as T;
+export function toObject<T>(value: T): T extends object ? T : { valueOf(): T } {
+  // @ts-ignore
+  if (value === null || value === undefined) return {};
+  // @ts-ignore
+  return typeof value === 'object' ? value : { valueOf: () => value };
 }

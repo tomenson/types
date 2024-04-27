@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asRegExp<T extends RegExp>(value: unknown, errMsg?: string): T {
-  if (isRegExp(value)) return value as T;
+export function asRegExp<T>(value: T, errMsg?: string): T extends RegExp ? T : never {
+  // @ts-ignore
+  if (isRegExp(value)) return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} cannot be converted to a RegExp`);
 }
 
@@ -19,7 +20,9 @@ export function isRegExp<T extends RegExp>(value: unknown): value is T {
 /**
  * Converts the value to a RegExp object.
  */
-export function toRegExp<T extends RegExp>(value: unknown): T {
-  if (value === null || value === undefined) return new RegExp('') as T;
-  return (isRegExp(value) ? value : new RegExp(String(value))) as T;
+export function toRegExp<T>(value: T): T extends RegExp ? T : RegExp {
+  // @ts-ignore
+  if (value === null || value === undefined) return new RegExp('');
+  // @ts-ignore
+  return isRegExp(value) ? value : new RegExp(String(value));
 }

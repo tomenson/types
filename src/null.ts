@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asNull<T extends null>(value: unknown, errMsg?: string): T {
-  if (value === null) return value as T;
+export function asNull<T>(value: T, errMsg?: string): T extends null ? T : never {
+  // @ts-ignore
+  if (value === null) return value;
   throw new TypeError(errMsg || `${typeof value} is not null`);
 }
 
@@ -19,6 +20,7 @@ export function isNull<T extends null>(value: unknown): value is T {
 /**
  * Returns null no matter what the value is.
  */
-export function toNull<T extends null>(_value: unknown): T {
-  return null as T;
+export function toNull<T>(_value: T): T extends null ? T : null {
+  // @ts-ignore
+  return null;
 }

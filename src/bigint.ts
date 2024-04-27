@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asBigInt<T extends bigint>(value: unknown, errMsg?: string): T {
-  if (typeof value === 'bigint') return value as T;
+export function asBigInt<T>(value: T, errMsg?: string): T extends bigint ? T : never {
+  // @ts-ignore
+  if (typeof value === 'bigint') return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a bigint`);
 }
 
@@ -20,15 +21,19 @@ export function isBigInt<T extends bigint>(value: unknown): value is T {
 /**
  * Converts the value to a bigint.
  */
-export function toBigInt<T extends bigint>(value: unknown): T {
-  if (value === null || value === undefined) return 0n as T;
-  if (typeof value === 'bigint') return value as T;
-  if (typeof value === 'object') return 0n as T;
+export function toBigInt<T>(value: T): T extends bigint ? T : bigint {
+  // @ts-ignore
+  if (value === null || value === undefined) return 0n;
+  // @ts-ignore
+  if (typeof value === 'bigint') return value;
+  // @ts-ignore
+  if (typeof value === 'object') return 0n;
 
   try {
-    // @ts-expect-error Bad argument.
-    return BigInt(value) as T;
+    // @ts-ignore
+    return BigInt(value);
   } catch {
-    return 0n as T;
+    // @ts-ignore
+    return 0n;
   }
 }

@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asDate<T extends Date>(value: unknown, errMsg?: string): T {
-  if (isDate(value)) return value as T;
+export function asDate<T>(value: T, errMsg?: string): T extends Date ? T : never {
+  // @ts-ignore
+  if (isDate(value)) return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a Date object`);
 }
 
@@ -19,14 +20,17 @@ export function isDate<T extends Date>(value: unknown): value is T {
 /**
  * Converts the value to a Date object.
  */
-export function toDate<T extends Date>(value: unknown): T {
-  if (value === null || value === undefined) return new Date(0) as T;
-  if (isDate(value)) return value as T;
+export function toDate<T>(value: T): T extends Date ? T : Date {
+  // @ts-ignore
+  if (value === null || value === undefined) return new Date(0);
+  // @ts-ignore
+  if (isDate(value)) return value;
 
   try {
-    // @ts-expect-error Bad argument.
-    return new Date(value) as T;
+    // @ts-ignore
+    return new Date(value);
   } catch {
-    return new Date(0) as T;
+    // @ts-ignore
+    return new Date(0);
   }
 }

@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asString<T extends string>(value: unknown, errMsg?: string): T {
-  if (typeof value === 'string') return value as T;
+export function asString<T>(value: T, errMsg?: string): T extends string ? T : never {
+  // @ts-ignore
+  if (typeof value === 'string') return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a string`);
 }
 
@@ -20,6 +21,7 @@ export function isString<T extends string>(value: unknown): value is T {
 /**
  * Converts the value to a string.
  */
-export function toString<T extends string>(value: unknown): T {
-  return String(value) as T;
+export function toString<T>(value: T): T extends string ? T : string {
+  // @ts-ignore
+  return String(value);
 }

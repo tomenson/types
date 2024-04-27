@@ -4,8 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asSymbol<T extends symbol>(value: unknown, errMsg?: string): T {
-  if (typeof value === 'symbol') return value as T;
+export function asSymbol<T>(value: T, errMsg?: string): T extends symbol ? T : never {
+  // @ts-ignore
+  if (typeof value === 'symbol') return value;
   throw new TypeError(errMsg || `${value === null ? null : typeof value} cannot be converted to a symbol`);
 }
 
@@ -13,21 +14,24 @@ export function asSymbol<T extends symbol>(value: unknown, errMsg?: string): T {
  * Returns true if the value is a symbol.
  * Functional alternative to symbol type guard.
  */
-export function isSymbol<T extends symbol>(value: unknown): value is T {
+export function isSymbol<T extends symbol>(value: T): value is T {
   return typeof value === 'symbol';
 }
 
 /**
  * Converts the value to a symbol.
  */
-export function toSymbol<T extends symbol>(value: unknown): T {
-  if (value === null || value === undefined) return Symbol() as T;
-  if (typeof value === 'symbol') return value as T;
+export function toSymbol<T>(value: T): T extends symbol ? T : symbol {
+  // @ts-ignore
+  if (value === null || value === undefined) return Symbol();
+  // @ts-ignore
+  if (typeof value === 'symbol') return value;
 
   try {
-    // @ts-expect-error Bad argument.
-    return Symbol(value) as T;
+    // @ts-ignore
+    return Symbol(value);
   } catch {
-    return Symbol(String(value)) as T;
+    // @ts-ignore
+    return Symbol(String(value));
   }
 }

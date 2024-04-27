@@ -1,4 +1,5 @@
-import { isError } from './error';
+import { toError } from './error';
+import type { AnyFunction } from './types';
 
 /**
  * Does nothing at all.
@@ -12,10 +13,10 @@ export function noop(): void {
  * Calls the function with the given arguments and returns the result.
  * If the function throws an error, it returns the error instead as an object.
  */
-export function tryCatch<F extends (...args: A) => R, A extends unknown[], R = void>(fn: F, ...args: A): Error | R {
+export function tryCatch<F extends AnyFunction>(fn: F, ...args: Parameters<F>): Error | ReturnType<F> {
   try {
     return fn(...args);
   } catch (err) {
-    return isError(err) ? err : new Error(String(err));
+    return toError(err);
   }
 }
