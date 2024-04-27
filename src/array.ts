@@ -4,14 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asArray<T extends unknown[]>(
-  value: unknown,
-  errMsg?: string,
-): T {
+export function asArray<T extends unknown[]>(value: unknown, errMsg?: string): T {
   if (Array.isArray(value)) return value as T;
-  throw new TypeError(
-    errMsg || `${value === null ? null : typeof value} is not an array`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not an array`);
 }
 
 /**
@@ -28,8 +23,7 @@ export function toArray<T extends unknown[]>(value: unknown): T {
   if (value === null || value === undefined) return [] as unknown as T;
   if (Array.isArray(value)) return value as T;
   // @ts-expect-error Unknown property.
-  if (typeof value !== 'object' || typeof value.length !== 'number')
-    return [value] as T;
+  if (typeof value !== 'object' || typeof value.length !== 'number') return [value] as T;
 
   try {
     // @ts-expect-error Bad argument.

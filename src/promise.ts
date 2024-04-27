@@ -6,18 +6,14 @@
  */
 export function asPromise<T extends Promise<void>>(value: unknown): T {
   if (isPromise(value)) return value as T;
-  throw new TypeError(
-    `${value === null ? null : typeof value} is not a Promise`,
-  );
+  throw new TypeError(`${value === null ? null : typeof value} is not a Promise`);
 }
 
 /**
  * Returns true if the value is a Promise object.
  */
 export function isPromise<T extends Promise<void>>(value: unknown): value is T {
-  return value
-    ? Object.prototype.toString.call(value) === '[object Promise]'
-    : false;
+  return value ? Object.prototype.toString.call(value) === '[object Promise]' : false;
 }
 
 /**

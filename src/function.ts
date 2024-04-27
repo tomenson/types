@@ -5,14 +5,9 @@
  * @throws {TypeError}
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function asFunction<T extends Function>(
-  value: unknown,
-  errMsg?: string,
-): T {
+export function asFunction<T extends Function>(value: unknown, errMsg?: string): T {
   if (typeof value === 'function') return value as T;
-  throw new TypeError(
-    errMsg || `${value === null ? null : typeof value} is not a function`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a function`);
 }
 
 /**

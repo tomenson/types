@@ -4,14 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asUndefined<T extends undefined>(
-  value: unknown,
-  errMsg?: string,
-): T {
+export function asUndefined<T extends undefined>(value: unknown, errMsg?: string): T {
   if (value === undefined) return value as T;
-  throw new TypeError(
-    errMsg || `${value === null ? null : typeof value} is not undefined`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not undefined`);
 }
 
 /**

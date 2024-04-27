@@ -4,14 +4,9 @@
  *
  * @throws {TypeError}
  */
-export function asBoolean<T extends boolean>(
-  value: unknown,
-  errMsg?: string,
-): T {
+export function asBoolean<T extends boolean>(value: unknown, errMsg?: string): T {
   if (typeof value === 'boolean') return value as T;
-  throw new TypeError(
-    errMsg || `${value === null ? null : typeof value} is not a boolean`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a boolean`);
 }
 
 /**

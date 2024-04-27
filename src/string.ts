@@ -6,9 +6,7 @@
  */
 export function asString<T extends string>(value: unknown, errMsg?: string): T {
   if (typeof value === 'string') return value as T;
-  throw new TypeError(
-    errMsg || `${value === null ? null : typeof value} is not a string`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a string`);
 }
 
 /**

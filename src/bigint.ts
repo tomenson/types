@@ -6,9 +6,7 @@
  */
 export function asBigInt<T extends bigint>(value: unknown, errMsg?: string): T {
   if (typeof value === 'bigint') return value as T;
-  throw new TypeError(
-    errMsg || `${value === null ? null : typeof value} is not a bigint`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a bigint`);
 }
 
 /**

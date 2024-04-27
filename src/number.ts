@@ -6,9 +6,7 @@
  */
 export function asNumber<T extends number>(value: unknown, errMsg?: string): T {
   if (typeof value === 'number') return value as T;
-  throw new TypeError(
-    errMsg || `${value === null ? null : typeof value} is not a number`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a number`);
 }
 
 /**

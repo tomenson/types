@@ -6,18 +6,14 @@
  */
 export function asDate<T extends Date>(value: unknown, errMsg?: string): T {
   if (isDate(value)) return value as T;
-  throw new TypeError(
-    errMsg || `${value === null ? null : typeof value} is not a Date object`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a Date object`);
 }
 
 /**
  * Returns true if the value is a Date object.
  */
 export function isDate<T extends Date>(value: unknown): value is T {
-  return value
-    ? Object.prototype.toString.call(value) === '[object Date]'
-    : false;
+  return value ? Object.prototype.toString.call(value) === '[object Date]' : false;
 }
 
 /**

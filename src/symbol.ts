@@ -6,10 +6,7 @@
  */
 export function asSymbol<T extends symbol>(value: unknown, errMsg?: string): T {
   if (typeof value === 'symbol') return value as T;
-  throw new TypeError(
-    errMsg ||
-      `${value === null ? null : typeof value} cannot be converted to a symbol`,
-  );
+  throw new TypeError(errMsg || `${value === null ? null : typeof value} cannot be converted to a symbol`);
 }
 
 /**

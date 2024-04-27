@@ -12,11 +12,7 @@ export function noop(): void {
  * Calls the function with the given arguments and returns the result.
  * If the function throws an error, it returns the error instead as an object.
  */
-export function tryCatch<
-  F extends (...args: A) => R,
-  A extends unknown[],
-  R = void,
->(fn: F, ...args: A): Error | R {
+export function tryCatch<F extends (...args: A) => R, A extends unknown[], R = void>(fn: F, ...args: A): Error | R {
   try {
     return fn(...args);
   } catch (err) {
