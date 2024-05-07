@@ -38,5 +38,9 @@ export function toObject<T>(value: T): T extends object ? T : { valueOf(): T } {
   // @ts-ignore
   if (value === null || value === undefined) return {};
   // @ts-ignore
-  return typeof value === 'object' ? value : { valueOf: () => value };
+  return typeof value === 'object' ? value : {
+    valueOf() {
+      return value;
+    },
+  };
 }
