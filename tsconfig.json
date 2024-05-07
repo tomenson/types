@@ -49,13 +49,13 @@
     // "maxNodeModuleJsDepth": 1,
 
     /* Emit */
-    // "declaration": true,
+    "declaration": true,
     // "declarationMap": true,
     // "emitDeclarationOnly": true,
-    // "sourceMap": true,
+    "sourceMap": true,
     // "inlineSourceMap": true,
     // "outFile": "./",
-    // "outDir": "./",
+    "outDir": "./dist",
     // "removeComments": true,
     // "noEmit": true,
     // "importHelpers": true,
@@ -105,5 +105,6 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["src"]
 }
