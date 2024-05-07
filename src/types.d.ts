@@ -4,14 +4,14 @@
 export type AnyFunction = (...args: any[]) => any;
 
 /**
- * Type of items in an array.
- */
-export type ArrayItem<T> = T extends (infer I)[] ? I : never;
-
-/**
  * Any object.
  */
 export type AnyObject<T extends object = {}> = { [K in keyof T]?: any };
+
+/**
+ * Type of items in an array.
+ */
+export type ArrayItem<T> = T extends (infer I)[] ? I : never;
 
 /**
  * Callback function as generic.
