@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's a string, otherwise throws an error.
  * Functional alternative to string casting.
@@ -7,7 +9,7 @@
 export function asString<T>(value: T, errMsg?: string): T extends string ? T : never {
   // @ts-ignore
   if (typeof value === 'string') return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a string`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not a string`);
 }
 
 /**

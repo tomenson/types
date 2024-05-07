@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's a Promise object, otherwise throws an error.
  * Functional alternative to Promise casting.
@@ -7,7 +9,7 @@
 export function asPromise<T>(value: T): T extends Promise<infer I> ? T : never {
   // @ts-ignore
   if (isPromise(value)) return value;
-  throw new TypeError(`${value === null ? null : typeof value} is not a Promise`);
+  throw new TypeError(`${getTypeOf(value)} is not a Promise object`);
 }
 
 /**

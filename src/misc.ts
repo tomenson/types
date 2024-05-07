@@ -2,6 +2,25 @@ import { toError } from './error';
 import type { AnyFunction, JSONValue } from './types';
 
 /**
+ * Returns the name of the type of value.
+ * Equivalent to the `typeof` operator except that null returns "null".
+ * Cannot be used as a regular type guard.
+ */
+export function getTypeOf(value: unknown):
+  | 'bigint'
+  | 'boolean'
+  | 'function'
+  | 'null'
+  | 'number'
+  | 'object'
+  | 'string'
+  | 'symbol'
+  | 'undefined'
+{
+  return value === null ? 'null' : typeof value;
+}
+
+/**
  * Does nothing at all.
  * Useful as default for callbacks for instance.
  */
@@ -18,7 +37,7 @@ export function parse<T>(
   jsonStr: T,
   reviver?: (key: string, value: unknown) => unknown,
 ): T extends string ? JSONValue : never {
-  if (typeof jsonStr !== 'string') throw new TypeError(`${jsonStr === null ? 'null' : typeof jsonStr} is not a string`);
+  if (typeof jsonStr !== 'string') throw new TypeError(`${getTypeOf(jsonStr)} is not a string`);
   return JSON.parse(jsonStr, reviver);
 }
 
@@ -33,7 +52,7 @@ export function stringify<T>(
 ): T extends JSONValue ? string : never {
   // @ts-ignore
   const jsonStr = JSON.stringify(value, replacer, space) as string | undefined;
-  if (typeof jsonStr !== 'string') throw new TypeError(`${typeof value} cannot be stringified`);
+  if (typeof jsonStr !== 'string') throw new TypeError(`${getTypeOf(value)} cannot be stringified`);
   // @ts-ignore
   return jsonStr;
 }

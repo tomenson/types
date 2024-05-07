@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's a RegExp object, otherwise throws an error.
  * Functional alternative to RegExp casting.
@@ -7,7 +9,7 @@
 export function asRegExp<T>(value: T, errMsg?: string): T extends RegExp ? T : never {
   // @ts-ignore
   if (isRegExp(value)) return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} cannot be converted to a RegExp`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} cannot be converted to a RegExp object`);
 }
 
 /**

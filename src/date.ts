@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's a Date object, otherwise throws an error.
  * Functional alternative to Date casting.
@@ -7,7 +9,7 @@
 export function asDate<T>(value: T, errMsg?: string): T extends Date ? T : never {
   // @ts-ignore
   if (isDate(value)) return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a Date object`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not a Date object`);
 }
 
 /**

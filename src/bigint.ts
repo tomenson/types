@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's a bigint, otherwise throws an error.
  * Functional alternative to bigint casting.
@@ -7,7 +9,7 @@
 export function asBigInt<T>(value: T, errMsg?: string): T extends bigint ? T : never {
   // @ts-ignore
   if (typeof value === 'bigint') return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a bigint`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not a bigint`);
 }
 
 /**

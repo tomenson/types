@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's an Error object, otherwise throws an error.
  * Functional alternative to Error casting.
@@ -7,7 +9,7 @@
 export function asError<T>(value: T, errMsg?: string): T extends Error ? T : never {
   // @ts-ignore
   if (isError(value)) return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not an Error object`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not an Error object`);
 }
 
 /**

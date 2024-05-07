@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns undefined if the value is undefined, otherwise throws an error.
  * Functional alternative to undefined casting.
@@ -7,7 +9,7 @@
 export function asUndefined<T>(value: T, errMsg?: string): T extends undefined ? T : never {
   // @ts-ignore
   if (value === undefined) return;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not undefined`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not undefined`);
 }
 
 /**

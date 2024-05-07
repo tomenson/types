@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's a number, otherwise throws an error.
  * Functional alternative to number casting.
@@ -7,7 +9,7 @@
 export function asNumber<T>(value: T, errMsg?: string): T extends number ? T : never {
   // @ts-ignore
   if (typeof value === 'number') return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a number`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not a number`);
 }
 
 /**

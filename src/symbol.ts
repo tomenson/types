@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's a symbol, otherwise throws an error.
  * Functional alternative to symbol casting.
@@ -7,7 +9,7 @@
 export function asSymbol<T>(value: T, errMsg?: string): T extends symbol ? T : never {
   // @ts-ignore
   if (typeof value === 'symbol') return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} cannot be converted to a symbol`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} cannot be converted to a symbol`);
 }
 
 /**

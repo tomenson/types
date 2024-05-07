@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns null if the value is null, otherwise throws an error.
  * Functional alternative to null casting.
@@ -7,7 +9,7 @@
 export function asNull<T>(value: T, errMsg?: string): T extends null ? T : never {
   // @ts-ignore
   if (value === null) return value;
-  throw new TypeError(errMsg || `${typeof value} is not null`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not null`);
 }
 
 /**

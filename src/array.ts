@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's an array, otherwise throws an error.
  * Functional alternative to array casting.
@@ -7,7 +9,7 @@
 export function asArray<T>(value: T, errMsg?: string): T extends (infer I)[] ? I[] : never {
   // @ts-ignore
   if (Array.isArray(value)) return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not an array`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not an array`);
 }
 
 /**

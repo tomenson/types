@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's a boolean, otherwise throws an error.
  * Functional alternative to boolean casting.
@@ -7,7 +9,7 @@
 export function asBoolean<T>(value: T, errMsg?: string): T extends boolean ? T : never {
   // @ts-ignore
   if (typeof value === 'boolean') return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a boolean`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not a boolean`);
 }
 
 /**

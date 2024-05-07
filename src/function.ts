@@ -1,3 +1,4 @@
+import { getTypeOf } from './misc';
 import type { AnyFunction } from './types';
 
 /**
@@ -9,7 +10,7 @@ import type { AnyFunction } from './types';
 export function asFunction<T>(value: T, errMsg?: string): T extends AnyFunction ? T : never {
   // @ts-ignore
   if (typeof value === 'function') return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} is not a function`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not a function`);
 }
 
 /**

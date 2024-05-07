@@ -1,3 +1,5 @@
+import { getTypeOf } from './misc';
+
 /**
  * Returns the value if it's an object, otherwise throws an error.
  * Functional alternative to object casting.
@@ -7,7 +9,7 @@
 export function asObject<T>(value: T, errMsg?: string): T extends object ? T : never {
   // @ts-ignore
   if (value && typeof value === 'object') return value;
-  throw new TypeError(errMsg || `${value === null ? null : typeof value} cannot be converted to an object`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} cannot be converted to an object`);
 }
 
 /**
