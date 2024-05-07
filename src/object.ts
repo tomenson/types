@@ -9,7 +9,7 @@ import { getTypeOf } from './misc';
 export function asObject<T>(value: T, errMsg?: string): T extends object ? T : never {
   // @ts-ignore
   if (value && typeof value === 'object') return value;
-  throw new TypeError(errMsg || `${getTypeOf(value)} cannot be converted to an object`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not an object`);
 }
 
 /**

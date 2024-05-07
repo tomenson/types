@@ -9,7 +9,7 @@ import { getTypeOf } from './misc';
 export function asRegExp<T>(value: T, errMsg?: string): T extends RegExp ? T : never {
   // @ts-ignore
   if (isRegExp(value)) return value;
-  throw new TypeError(errMsg || `${getTypeOf(value)} cannot be converted to a RegExp object`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not a RegExp object`);
 }
 
 /**

@@ -9,7 +9,7 @@ import { getTypeOf } from './misc';
 export function asSymbol<T>(value: T, errMsg?: string): T extends symbol ? T : never {
   // @ts-ignore
   if (typeof value === 'symbol') return value;
-  throw new TypeError(errMsg || `${getTypeOf(value)} cannot be converted to a symbol`);
+  throw new TypeError(errMsg || `${getTypeOf(value)} is not a symbol`);
 }
 
 /**
