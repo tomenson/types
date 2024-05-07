@@ -59,6 +59,14 @@ export type ReadonlyArray<T = unknown> = readonly T[];
 export type ReadonlyObject<T extends object> = { readonly [K in keyof T]: T[K] };
 
 /**
+ * Unknown function, or object, or something else.
+ */
+export type Unknown<T = unknown> =
+  T extends AnyFunction ? UnknownFunction :
+  T extends object ? UnknownObject<T> :
+  unknown;
+
+/**
  * Function with unknown arguments and unknown return type.
  */
 export type UnknownFunction = (...args: unknown[]) => unknown;
