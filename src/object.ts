@@ -32,13 +32,19 @@ export function isObject<T extends object>(value: unknown): value is T {
 }
 
 /**
+ * Returns true if the value is an object or null. Arrays are also considered objects.
+ * Functional alternative to object (including null) type guard.
+ */
+export function isObjectOrNull<T extends object>(value: unknown): value is T | null {
+  return typeof value === 'object';
+}
+
+/**
  * Converts the value to an object.
  */
 export function toObject<T>(value: T): T extends object ? T : { valueOf(): T } {
   // @ts-ignore
-  if (value === null || value === undefined) return {};
-  // @ts-ignore
-  return typeof value === 'object' ? value : {
+  return value && typeof value === 'object' ? value : {
     valueOf() {
       return value;
     },
