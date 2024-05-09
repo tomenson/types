@@ -1,12 +1,17 @@
 /**
- * Function of any kind.
+ * Array of any kind. Use as constraint.
+ */
+export type AnyArray = any[];
+
+/**
+ * Function of any kind. Use as constraint.
  */
 export type AnyFunction = (...args: any[]) => any;
 
 /**
- * Any object.
+ * Object of any kind. Use as constraint.
  */
-export type AnyObject<T extends object = {}> = { [K in keyof T]?: any };
+export type AnyObject = { [key: any]: any };
 
 /**
  * Type of items in an array.
@@ -17,11 +22,6 @@ export type ArrayItem<T> = T extends (infer I)[] ? I : never;
  * Callback function as generic.
  */
 export type Callback<A = [], R = void> = (...args: A) => R;
-
-/**
- * Dictionary object with string keys.
- */
-export type Dictionary<T = unknown> = Record<string, T>;
 
 /**
  * Value equivalent to false.
@@ -56,27 +56,33 @@ export type ReadonlyArray<T = unknown> = readonly T[];
 /**
  * Read-only object.
  */
-export type ReadonlyObject<T extends object> = { readonly [K in keyof T]: T[K] };
+export type ReadonlyObject<T = object> = T extends object ? { readonly [K in keyof T]: T[K] } : never;
 
 /**
  * Unknown function, or object, or something else.
  */
 export type Unknown<T = unknown> =
-  T extends AnyFunction ? UnknownFunction :
-  T extends object ? UnknownObject<T> :
+  T extends AnyArray ? UnknownArray<T> :
+  T extends AnyFunction ? UnknownFunction<T> :
+  T extends AnyObject ? UnknownObject<T> :
   unknown;
+
+/**
+ * Unknown array.
+ */
+export type UnknownArray<T = AnyArray> = T extends AnyArray ? unknown[] : never;
 
 /**
  * Function with unknown arguments and unknown return type.
  */
-export type UnknownFunction = (...args: unknown[]) => unknown;
+export type UnknownFunction<T = AnyFunction> = T extends AnyFunction ? (...args: unknown[]) => unknown : never;
 
 /**
  * Unknown object.
  */
-export type UnknownObject<T extends object = {}> = { [K in keyof T]?: unknown };
+export type UnknownObject<T = AnyObject> = T extends AnyObject ? { [K in keyof T]?: unknown } : never;
 
 /**
  * Type of value contained.
  */
-export type ValueOf<T extends object> = ReturnType<T['valueOf']>;
+export type ValueOf<T> = ReturnType<T['valueOf']>;
