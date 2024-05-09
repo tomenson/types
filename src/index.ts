@@ -4,6 +4,7 @@ export * from './boolean';
 export * from './date';
 export * from './error';
 export * from './function';
+export * from './json';
 export * from './misc';
 export * from './null';
 export * from './number';
